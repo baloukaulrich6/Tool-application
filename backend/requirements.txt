@@ -1,0 +1,8 @@
+Django==4.2.11
+djangorestframework==3.15.1
+django-cors-headers==4.3.1
+pandas==2.2.1
+numpy==1.26.4
+python-dateutil==2.9.0
+gunicorn==21.2.0
+tqdm==4.66.2
