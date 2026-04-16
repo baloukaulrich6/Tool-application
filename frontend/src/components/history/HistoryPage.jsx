@@ -10,17 +10,12 @@ export default function HistoryPage() {
   const totalPages = Math.ceil(total / pageSize)
 
   return (
-    <div className="page">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+    <>
+      <div className="topbar">
         <div>
-          <h1 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '4px' }}>
-            Historique des analyses
-          </h1>
-          <p style={{ color: '#6b7280', fontSize: '14px' }}>
-            {total} analyse{total > 1 ? 's' : ''} au total
-          </p>
+          <div className="topbar-title">Historique des analyses</div>
         </div>
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div className="page-actions">
           <button className="btn btn-outline" onClick={() => refresh()}>
             Actualiser
           </button>
@@ -30,39 +25,56 @@ export default function HistoryPage() {
         </div>
       </div>
 
-      {loading && <LoadingSpinner text="Chargement de l'historique..." />}
-
-      {error && <div className="error-box">{error}</div>}
-
-      {!loading && !error && (
-        <>
-          <div className="card">
-            <HistoryTable runs={runs} onRefresh={refresh} />
+      <div className="page">
+        <div className="page-header">
+          <div className="page-title">
+            <h1>Historique des analyses</h1>
+            <p>{total} analyse{total > 1 ? 's' : ''} au total</p>
           </div>
+          <div className="page-actions">
+            <button className="btn btn-outline" onClick={() => refresh()}>
+              Actualiser
+            </button>
+            <Link to="/" className="btn btn-primary">
+              Nouvelle analyse
+            </Link>
+          </div>
+        </div>
 
-          {totalPages > 1 && (
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '20px' }}>
-              <button
-                className="btn btn-outline"
-                disabled={page === 1}
-                onClick={() => setPage(p => p - 1)}
-              >
-                Précédent
-              </button>
-              <span style={{ padding: '10px 16px', fontSize: '14px', color: '#6b7280' }}>
-                Page {page} / {totalPages}
-              </span>
-              <button
-                className="btn btn-outline"
-                disabled={page === totalPages}
-                onClick={() => setPage(p => p + 1)}
-              >
-                Suivant
-              </button>
+        {loading && <LoadingSpinner text="Chargement de l'historique..." />}
+
+        {error && <div className="error-box">{error}</div>}
+
+        {!loading && !error && (
+          <>
+            <div className="card">
+              <HistoryTable runs={runs} onRefresh={refresh} />
             </div>
-          )}
-        </>
-      )}
-    </div>
+
+            {totalPages > 1 && (
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '20px' }}>
+                <button
+                  className="btn btn-outline"
+                  disabled={page === 1}
+                  onClick={() => setPage(p => p - 1)}
+                >
+                  Précédent
+                </button>
+                <span style={{ padding: '10px 16px', fontSize: '14px', color: 'var(--g500)' }}>
+                  Page {page} / {totalPages}
+                </span>
+                <button
+                  className="btn btn-outline"
+                  disabled={page === totalPages}
+                  onClick={() => setPage(p => p + 1)}
+                >
+                  Suivant
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </>
   )
 }

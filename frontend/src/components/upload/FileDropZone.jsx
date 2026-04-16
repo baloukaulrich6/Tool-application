@@ -22,12 +22,12 @@ export default function FileDropZone({ onFileSelected, isLoading }) {
     <div
       {...getRootProps()}
       style={{
-        border: `2px dashed ${isDragActive ? '#1a56db' : '#d1d5db'}`,
+        border: `2px dashed ${isDragActive ? 'var(--orange)' : 'var(--g300)'}`,
         borderRadius: '12px',
         padding: '48px 32px',
         textAlign: 'center',
         cursor: isLoading ? 'not-allowed' : 'pointer',
-        background: isDragActive ? '#e8f0fe' : '#f9fafb',
+        background: isDragActive ? 'var(--orange-l)' : 'var(--g50)',
         transition: 'all 0.2s',
         opacity: isLoading ? 0.6 : 1,
       }}
@@ -40,24 +40,24 @@ export default function FileDropZone({ onFileSelected, isLoading }) {
 
       {file ? (
         <div>
-          <p style={{ fontWeight: 600, color: '#111827', marginBottom: '4px' }}>
+          <p style={{ fontWeight: 600, color: 'var(--g900)', marginBottom: '4px' }}>
             {file.name}
           </p>
-          <p style={{ fontSize: '13px', color: '#6b7280' }}>
+          <p style={{ fontSize: '13px', color: 'var(--g500)' }}>
             {(file.size / 1024).toFixed(1)} Ko — Cliquer pour changer
           </p>
         </div>
       ) : (
         <div>
-          <p style={{ fontWeight: 600, color: '#374151', marginBottom: '8px' }}>
+          <p style={{ fontWeight: 600, color: 'var(--g700)', marginBottom: '8px' }}>
             {isDragActive
               ? 'Déposer le fichier ici'
               : 'Glisser-déposer un fichier CSV ou cliquer pour sélectionner'}
           </p>
-          <p style={{ fontSize: '13px', color: '#6b7280' }}>
+          <p style={{ fontSize: '13px', color: 'var(--g500)' }}>
             Export Mantis Bug Tracker — format CSV (séparateur ; ou ,)
           </p>
-          <p style={{ fontSize: '12px', color: '#9ca3af', marginTop: '8px' }}>
+          <p style={{ fontSize: '12px', color: 'var(--g400)', marginTop: '8px' }}>
             Colonnes requises : id, user_id, bug_id, field_name, old_value, new_value, type, date_modified
           </p>
         </div>

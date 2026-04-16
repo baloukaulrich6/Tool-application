@@ -1,10 +1,17 @@
 import { useNavigate } from 'react-router-dom'
 
-const STATUS_STYLES = {
-  completed: { color: '#0e9f6e', label: 'Terminé' },
-  failed:    { color: '#e02424', label: 'Échec' },
-  running:   { color: '#d97706', label: 'En cours' },
-  pending:   { color: '#6b7280', label: 'En attente' },
+const STATUS_BADGE = {
+  completed: 'badge-completed',
+  failed:    'badge-failed',
+  running:   'badge-running',
+  pending:   'badge-pending',
+}
+
+const STATUS_LABEL = {
+  completed: 'Terminé',
+  failed:    'Échec',
+  running:   'En cours',
+  pending:   'En attente',
 }
 
 function fmtDate(iso) {
@@ -20,12 +27,10 @@ export default function HistoryTable({ runs = [], onRefresh }) {
 
   if (runs.length === 0) {
     return (
-      <div style={{ textAlign: 'center', padding: '48px', color: '#9ca3af' }}>
-        <p style={{ fontSize: '48px', marginBottom: '12px' }}>📂</p>
-        <p>Aucune analyse dans l'historique.</p>
-        <p style={{ fontSize: '13px', marginTop: '4px' }}>
-          Importez un fichier CSV pour commencer.
-        </p>
+      <div className="empty-state">
+        <div className="empty-icon">📂</div>
+        <div className="empty-title">Aucune analyse dans l'historique</div>
+        <div className="empty-sub">Importez un fichier CSV pour commencer.</div>
       </div>
     )
   }
@@ -45,7 +50,8 @@ export default function HistoryTable({ runs = [], onRefresh }) {
         </thead>
         <tbody>
           {runs.map(run => {
-            const s = STATUS_STYLES[run.status] || STATUS_STYLES.pending
+            const badgeClass = STATUS_BADGE[run.status] || 'badge-pending'
+            const label = STATUS_LABEL[run.status] || run.status
             return (
               <tr
                 key={run.id}
@@ -53,24 +59,19 @@ export default function HistoryTable({ runs = [], onRefresh }) {
                 onClick={() => run.status === 'completed' && navigate(`/results/${run.id}`)}
               >
                 <td style={{ fontWeight: 500 }}>{run.filename}</td>
-                <td style={{ color: '#6b7280' }}>{fmtDate(run.uploaded_at)}</td>
+                <td style={{ color: 'var(--g500)' }}>{fmtDate(run.uploaded_at)}</td>
                 <td>
-                  <span style={{
-                    display: 'inline-block',
-                    padding: '2px 10px',
-                    borderRadius: '9999px',
-                    fontSize: '12px',
-                    fontWeight: 600,
-                    background: `${s.color}22`,
-                    color: s.color,
-                  }}>
-                    {s.label}
-                  </span>
+                  <div className="status-pill">
+                    <span className={`badge ${badgeClass}`}>
+                      <span className="badge-dot" />
+                      {label}
+                    </span>
+                  </div>
                 </td>
-                <td style={{ color: '#6b7280' }}>
+                <td style={{ color: 'var(--g500)' }}>
                   {run.row_count != null ? run.row_count.toLocaleString('fr-FR') : '—'}
                 </td>
-                <td style={{ color: '#6b7280' }}>
+                <td style={{ color: 'var(--g500)' }}>
                   {run.duration_seconds != null ? `${run.duration_seconds}s` : '—'}
                 </td>
                 <td>
@@ -84,7 +85,7 @@ export default function HistoryTable({ runs = [], onRefresh }) {
                     </button>
                   )}
                   {run.status === 'failed' && run.error_message && (
-                    <span style={{ fontSize: '12px', color: '#e02424' }} title={run.error_message}>
+                    <span style={{ fontSize: '12px', color: 'var(--red)' }} title={run.error_message}>
                       Erreur
                     </span>
                   )}
