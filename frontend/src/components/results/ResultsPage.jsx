@@ -15,7 +15,8 @@ export default function ResultsPage() {
     return (
       <>
         <div className="topbar">
-          <div className="topbar-title">Résultats</div>
+          <div className="topbar-title">Tool-application &mdash; <strong>Résultats</strong></div>
+          <div className="topbar-spacer" />
         </div>
         <div className="page"><LoadingSpinner text="Chargement des résultats..." /></div>
       </>
@@ -26,7 +27,8 @@ export default function ResultsPage() {
     return (
       <>
         <div className="topbar">
-          <div className="topbar-title">Erreur</div>
+          <div className="topbar-title">Tool-application &mdash; <strong>Résultats</strong></div>
+          <div className="topbar-spacer" />
         </div>
         <div className="page">
           <div className="error-box">{error}</div>
@@ -45,9 +47,10 @@ export default function ResultsPage() {
   return (
     <>
       <div className="topbar">
-        <div>
-          <div className="topbar-title">{run.filename}</div>
+        <div className="topbar-title">
+          Tool-application &mdash; <strong>Résultats</strong>
         </div>
+        <div className="topbar-spacer" />
         <div className="page-actions">
           <Link to="/" className="btn btn-outline">Nouvelle analyse</Link>
           <ExportButton runId={run.id} filename={run.filename} />

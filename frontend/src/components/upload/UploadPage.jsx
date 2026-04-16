@@ -33,9 +33,10 @@ export default function UploadPage() {
   return (
     <>
       <div className="topbar">
-        <div>
-          <h1 className="topbar-title">Nouvelle analyse</h1>
+        <div className="topbar-title">
+          Tool-application &mdash; <strong>Analyser</strong>
         </div>
+        <div className="topbar-spacer" />
       </div>
 
       <div className="page" style={{ maxWidth: 720 }}>

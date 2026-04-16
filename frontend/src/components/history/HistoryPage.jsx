@@ -12,9 +12,10 @@ export default function HistoryPage() {
   return (
     <>
       <div className="topbar">
-        <div>
-          <div className="topbar-title">Historique des analyses</div>
+        <div className="topbar-title">
+          Tool-application &mdash; <strong>Historique</strong>
         </div>
+        <div className="topbar-spacer" />
         <div className="page-actions">
           <button className="btn btn-outline" onClick={() => refresh()}>
             Actualiser
